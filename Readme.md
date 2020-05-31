@@ -1,7 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ангелина](https://up.htmlacademy.ru/javascript/20/user/1474911).
-* Наставник: `Неизвестно`.
+* Наставник: [Даниил Царёв](https://up.htmlacademy.ru/javascript/20/user/945835).
 
 ---
 
