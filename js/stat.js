@@ -28,13 +28,13 @@ var getMaxValue = function (array) {
   var maxValue = array[0];
   for (var i = 1; i < array.length; i++) {
     if (array[i] > maxValue) {
-      maxValue = array[i]
+      maxValue = array[i];
     }
   }
   return maxValue;
 };
 
-var getIntegerArray = function(array) {
+var getIntegerArray = function (array) {
   for (var i = 0; i < array.length; i++) {
     array[i] = Math.round(array[i]);
   }
@@ -63,7 +63,7 @@ window.renderStatistics = function (ctx, players, times) {
   for (var i = 0; i < players.length; i++) {
     ctx.fillStyle = '#000000';
     ctx.fillText(players[i], CLOUD_X + BAR_SHIFT * (i + 1) + BAR_WIDTH * i, CLOUD_HEIGHT - SHIFT);
-    ctx.fillText(times[i].toString(), CLOUD_X + BAR_SHIFT * (i + 1) + BAR_WIDTH * i, CLOUD_HEIGHT-(getBarHeight(i, times) + BAR_SHIFT));
+    ctx.fillText(times[i].toString(), CLOUD_X + BAR_SHIFT * (i + 1) + BAR_WIDTH * i, CLOUD_HEIGHT - (getBarHeight(i, times) + BAR_SHIFT));
     ctx.fillStyle = getColor(players[i]);
     ctx.fillRect(CLOUD_X + BAR_SHIFT * (i + 1) + BAR_WIDTH * i, CLOUD_HEIGHT - SHIFT * 3, BAR_WIDTH, -(getBarHeight(i, times)));
   }
