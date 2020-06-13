@@ -10,18 +10,16 @@ var BAR_MAX_HEIGHT = 150;
 var BAR_WIDTH = 40;
 var BAR_SHIFT = 50;
 
-var colorsList = {
+var Colors = {
   RED: 'rgba(255, 0, 0, 1)',
   GRAY: 'rgba(0, 0, 0, 0.7)',
   WHITE: '#fff',
   BLACK: '#000000'
 };
 
-var fonts = {
-  REGULAR: '16px PT Mono'
-};
+var FONT = '16px PT Mono';
 
-var messages = {
+var Messages = {
   VICTORY: 'Ура вы победили!',
   RESULTS: 'Список результатов:'
 };
@@ -38,10 +36,9 @@ var getRandomNumber = function () {
 
 var getColor = function (element) {
   if (element === 'Вы') {
-    return colorsList.RED;
+    return Colors.RED;
   } else {
-    var randomShadeOfBlue = 'hsl(240, ' + getRandomNumber() + '%, 50%)';
-    return randomShadeOfBlue;
+    return 'hsl(240, ' + getRandomNumber() + '%, 50%)';
   }
 };
 
@@ -56,40 +53,39 @@ var getMaxValue = function (array) {
 };
 
 var getIntegerArray = function (array) {
-  for (var i = 0; i < array.length; i++) {
-    array[i] = Math.round(array[i]);
+  var integerArray = array.slice();
+  for (var i = 0; i < integerArray.length; i++) {
+    integerArray[i] = Math.round(integerArray[i]);
   }
-  return array;
+  return integerArray;
 };
 
-var getBarHeight = function (i, array) {
+var getBarHeight = function (i, array, maxTime) {
   var currentTime = array[i];
-  var maxTime = getMaxValue(array);
   var currentBarHeight = BAR_MAX_HEIGHT * currentTime / maxTime;
   return currentBarHeight;
 };
 
-var renderSingleScore = function (ctx, players, times, playerNum) {
-  ctx.fillStyle = colorsList.BLACK;
+var renderScores = function (ctx, players, times, playerNum) {
+  var maxTime = getMaxValue(times);
+  ctx.fillStyle = Colors.BLACK;
   ctx.fillText(players[playerNum], CLOUD_X + BAR_SHIFT * (playerNum + 1) + BAR_WIDTH * playerNum, CLOUD_HEIGHT - SHIFT);
-  ctx.fillText(times[playerNum].toString(), CLOUD_X + BAR_SHIFT * (playerNum + 1) + BAR_WIDTH * playerNum, CLOUD_HEIGHT - (getBarHeight(playerNum, times) + BAR_SHIFT));
+  ctx.fillText(times[playerNum].toString(), CLOUD_X + BAR_SHIFT * (playerNum + 1) + BAR_WIDTH * playerNum, CLOUD_HEIGHT - (getBarHeight(playerNum, times, maxTime) + BAR_SHIFT));
   ctx.fillStyle = getColor(players[playerNum]);
-  ctx.fillRect(CLOUD_X + BAR_SHIFT * (playerNum + 1) + BAR_WIDTH * playerNum, CLOUD_HEIGHT - SHIFT * 3, BAR_WIDTH, -(getBarHeight(playerNum, times)));
+  ctx.fillRect(CLOUD_X + BAR_SHIFT * (playerNum + 1) + BAR_WIDTH * playerNum, CLOUD_HEIGHT - SHIFT * 3, BAR_WIDTH, -(getBarHeight(playerNum, times, maxTime)));
 };
 
 window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + SHIFT, CLOUD_Y + SHIFT, colorsList.GRAY);
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, colorsList.WHITE);
+  renderCloud(ctx, CLOUD_X + SHIFT, CLOUD_Y + SHIFT, Colors.GRAY);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, Colors.WHITE);
 
-  ctx.font = fonts.REGULAR;
-  ctx.fillStyle = colorsList.BLACK;
+  ctx.font = FONT;
+  ctx.fillStyle = Colors.BLACK;
   ctx.textBaseline = 'hanging';
-  ctx.fillText(messages.VICTORY, CLOUD_X + BAR_SHIFT, CLOUD_Y + SHIFT);
-  ctx.fillText(messages.RESULTS, CLOUD_X + BAR_SHIFT, CLOUD_Y + SHIFT * 3);
-
-  getIntegerArray(times);
+  ctx.fillText(Messages.VICTORY, CLOUD_X + BAR_SHIFT, CLOUD_Y + SHIFT);
+  ctx.fillText(Messages.RESULTS, CLOUD_X + BAR_SHIFT, CLOUD_Y + SHIFT * 3);
 
   for (var i = 0; i < players.length; i++) {
-    renderSingleScore(ctx, players, times, i);
+    renderSingleScore(ctx, players, getIntegerArray(times), i);
   }
 };
