@@ -13,7 +13,7 @@ document.querySelector('.setup-similar').classList.remove('hidden');
 var charactersDisplay = userDialog.querySelector('.setup-similar-list');
 
 var getRandomNumber = function (min, max) {
-  return Math.floor(min + Math.random() * (max - min))
+  return Math.floor(min + Math.random() * (max - min));
 };
 
 var getRandomArrayElement = function (array) {
@@ -66,6 +66,7 @@ var renderWizards = function (array) {
 
   return fragment;
 };
+
 
 var wizards = generateWizardsArray(CHARACTERS_NUMBER);
 charactersDisplay.appendChild(renderWizards(wizards));
