@@ -86,6 +86,6 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.fillText(Messages.RESULTS, CLOUD_X + BAR_SHIFT, CLOUD_Y + SHIFT * 3);
 
   for (var i = 0; i < players.length; i++) {
-    renderSingleScore(ctx, players, getIntegerArray(times), i);
+    renderScores(ctx, players, getIntegerArray(times), i);
   }
 };
